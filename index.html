@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Commercial Property - Add Field</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script data-require="vue.js@*" data-semver="10.0.26" src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js"></script>
+    <script src = 'js/app.js' ></script>
+</head>
+
+<body>
+<h1 class="header">Commercial Property - Add Field</h1>
+<div id="appContainer" class="container">
+    <div class="row">
+        <div class="scrollable col-sm col-md-3 left-panel" id="style-1" >
+            <h2>Field Types</h2>
+            <h4><label for="filter-type">Filter Types</label> </h4>
+            <input id = "filter-type" type = "text" class = "filter-type" v-on:change="onFilterTypes">
+            <ul>
+            <li class="type">
+                <h4>
+                    <img src="images/image1.png">
+                    <span class="type-title">Text</span>
+                </h4>
+                <section class="type-text">
+                    <span class="type-text-definition">Definition</span>
+                    <span class="">String of text</span>
+                </section>
+                <section class="type-text">
+                    <span class="type-text-definition">Default Display</span>
+                    <span class="">Free-form text input</span>
+                </section>
+            </li>
+            <li class="type">
+                <h4>
+                    <img src="images/image2.png">
+                    <span class="type-title">Date</span>
+                </h4>
+                <section class="type-text">
+                    <span class="type-text-definition">Definition</span>
+                    <span class="">Standard ISO format date</span>
+                </section>
+                <section class="type-text">
+                    <span class="type-text-definition">Default Display</span>
+                    <span class="">Datepicker, with configurable format</span>
+                </section>
+            </li>
+            <li class="type">
+                <h4>
+                    <img src="images/image3.png">
+                    <span class="type-title">VIN</span>
+                </h4>
+                <section class="type-text">
+                    <span class="type-text-definition">Definition</span>
+                    <span class="">Vehicle Identification Number</span>
+                </section>
+                <section class="type-text">
+                    <span class="type-text-definition">Default Display</span>
+                    <span class="">Free-form text input</span>
+                </section>
+            </li>
+            </ul>
+        </div>
+
+        <div class="col-sm col-md-9 center-panel">
+            <div class="row">
+                <h2>
+                    Field Details
+                </h2>
+                <div class="col-sm col-md-9 ">
+                    <div class="row">
+                        <div class="col-sm col-md-6">
+                            <h4><label for="display-label">Display Label</label></h4>
+                            <input id = "display-label" type = "text" class = "input-type"  v-on:blur="generateReferenceName" v-el:referencename>
+                            <span class="type-text-definition">For display purposes, spaces allowed</span>
+                            <h4><label for="default-value">Default Value</label></h4>
+                            <input id = "default-value" type = "text" class = "input-type" type = "text" v-el:defaultvalue>
+                            <h4><label for="custom-validation">Custom Validation</label></h4>
+                            <input id = "custom-validation" type = "text" class = "input-type" type = "text" v-el:customvalidation>
+                            <span class="type-text-definition" >{{validateCustomInput}}</span>
+                        </div>
+                        <div class="col-sm col-md-6 ">
+                            <h4><label for="reference-name">Reference Name</label></h4>
+                            <input id="reference-name" type = "text" class = "input-type"   v-bind:value="generated" readonly>
+                            <span class="type-text-definition">Used to reference in calculations, no spaces allowed</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h4 class="tags">Tags</h4>
+                        <div class="col-sm col-md-6">
+                            <h4>Tag Group</h4>
+                            <input type="button" id="vinmaster-button" value="Vinmaster" v-on:click="populateTags">
+                            <input type="button" id="iso-button" value="ISO" v-on:click="populateTags">
+                            <input type="button" id="tag3-button" value="Tag3" v-on:click="populateTags">
+                        </div>
+                        <div class="col-sm col-md-6 ">
+                            <h4>Tags</h4>
+                            <h5><i><label id = "tags">{{tags}}</label></i></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm col-md-3 right-panel">
+                    <h4>Field Groups</h4>
+                    <span class="type-text-definition">Choose a group for this input</span>
+                    <section class="groups">
+                        <section class="field-group" v-on:click="chooseGroup">
+                            <h5>Rental Vehicle Coverage Package</h5>
+                            <span class="type-text-definition" >{{groupInputCounter}} other inputs</span>
+                        </section>
+                    </section>
+                    <input type="button" id="newgroup-button" value="Add A New Group">
+                </div>
+        </div>
+    </div>
+</div>
+    <section class="row footer">
+        <div class="col-sm col-md-10">
+            <input class="save-button" type="button" id="save-button" value="Save Changes" v-on:click="onSave">
+        </div>
+        <div class="col-sm col-md-2">
+            <input class="cancel-button" type="button" id="cancel-button" value="Cancel Changes" v-on:click="onCancel">
+            <input class="delete-button" type="button" id="delete-button" value="Delete Input" v-on:click="onDelete">
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
+
